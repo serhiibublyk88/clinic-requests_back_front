@@ -1,0 +1,27 @@
+<!-- header.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinic MWM</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles.css"> 
+</head>
+<body class="bg-dark text-light d-flex flex-column min-vh-100">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
+            <div class="mx-auto text-center">
+                <a class="navbar-brand mx-auto" href="/" style="font-size: 3rem;">Clinic MWM</a>
+            </div>
+            <div>
+                <% if (!isLoginPage && typeof user !== 'undefined' && user) { %>
+                    <!-- Показываем Logout, если пользователь авторизован и не на странице логина -->
+                    <a href="#" id="logoutButton" class="btn btn-outline-light position-fixed" style="right: 15px; top: 15px;">Logout</a>
+                <% } else if (!isLoginPage) { %> 
+                    <!-- Показываем Login, если пользователь не авторизован и не на странице логина -->
+                    <a href="/auth/login" class="btn btn-outline-light position-fixed" style="right: 15px; top: 15px;">Login</a>
+                <% } %>
+            </div>
+        </nav>
+    </header>

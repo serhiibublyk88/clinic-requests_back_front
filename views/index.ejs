@@ -1,0 +1,58 @@
+<!-- index.ejs -->
+<%- include('partials/header', { isLoginPage: false }) %> 
+
+<div class="container mt-5 flex-grow-1">
+  <h3 class="text-center display">Appointment Registration</h3>
+  <form
+    action="/requests"
+    id="appointmentForm"
+    class="mx-auto"
+    style="width: 450px; margin-top: 30px"
+  >
+    <div class="form-group">
+      <label for="fullName">Full Name *</label>
+      <input type="text" class="form-control" id="fullName" name="name" required />
+    </div>
+    <div class="form-group">
+      <label for="phoneNumber">Phone Number *</label>
+      <input
+        type="tel"
+        class="form-control"
+        id="phoneNumber"
+        name="phone" 
+        required
+        inputmode="numeric"
+        pattern="[0-9]*"
+        maxlength="10"
+      />
+    </div>
+    <div class="form-group" style="margin-bottom: 30px">
+      <label for="issueDescription">Describe your issue (optional)</label>
+      <textarea
+        class="form-control"
+        id="issueDescription"
+        name="description"
+        rows="5"
+        style="height: 200px"
+      ></textarea>
+    </div>
+    <div class="text-center">
+      <button  class="btn btn-outline-light" id="submitBtn">
+        Submit
+      </button>
+    </div>
+  </form>
+  <div id="overlay" class="d-none">
+    <div
+      class="alert alert-success text-center p-4"
+      role="alert"
+      id="successMessage"
+    >
+      Your appointment has been submitted successfully!
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
+
+<script src="/app.js"></script>

@@ -1,0 +1,61 @@
+<!-- login.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Clinic MWM</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="bg-dark text-light d-flex flex-column min-vh-100">
+    <%- include('partials/header', { isLoginPage: true }) %>
+
+    <div class="container mt-5 flex-grow-1">
+      <h3 class="text-center">Login</h3>
+
+      <form
+        id="loginForm"
+        class="mx-auto"
+        style="width: 450px"
+        action="/auth/login"
+        method="POST"
+      >
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            required
+          />
+        </div>
+        <div class="text-center">
+          <button
+            type="submit"
+            class="btn btn-outline-light"
+            style="margin-top: 25px"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+    <%- include('partials/footer') %>
+    <script src="/app.js"></script>
+  </body>
+</html>

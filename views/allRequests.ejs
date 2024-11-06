@@ -1,0 +1,135 @@
+<!-- allRequests.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Requests</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body class="bg-dark text-light">
+    <%- include('partials/header', { isLoginPage: false }) %>
+
+    <div class="container mt-5">
+      <h1 class="text-center">All Requests</h1>
+
+      <div class="search-container d-flex justify-content-center mb-4">
+        <input
+          type="text"
+          id="searchInput"
+          class="form-control w-50"
+          placeholder="Search"
+          aria-label="Search"
+          value="<%= search %>"
+        />
+      </div>
+    </div>
+
+    <div class="container">
+      <table class="table table-bordered table-striped text-light">
+        <thead>
+          <tr>
+            <th>
+              Date & Time
+              <button
+                class="btn btn-light btn-sm float-right"
+                id="sortByDate"
+                aria-label="Sort by Date"
+              >
+                <i class="fas fa-sort-amount-down" id="sortByDateIcon"></i>
+              </button>
+            </th>
+
+            <th>
+              Name
+              <button
+                class="btn btn-light btn-sm float-right"
+                id="sortByName"
+                aria-label="Sort by Name"
+              >
+                <i class="fas fa-sort-alpha-down" id="sortByNameIcon"></i>
+              </button>
+            </th>
+            <th>Phone</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="requestTableBody">
+          <% requests.forEach(request => { %>
+          <tr data-id="<%= request._id %>">
+            <td><%= request.createdAt.toLocaleString() %></td>
+            <td><%= request.name %></td>
+            <td><%= request.phone %></td>
+            <td><%= request.description %></td>
+            <td class="status-cell">
+              <span
+                class="badge <%= request.status === 'completed' ? 'badge-success' : 'badge-warning' %>"
+              >
+                <%= request.status %>
+              </span>
+            </td>
+            <td>
+              <button
+                class="icon-button change-status <%= request.status === 'pending' ? 'pending' : 'completed' %>"
+              >
+                <i
+                  class="fas <%= request.status === 'pending' ? 'fa-check-circle text-success' : 'fa-circle text-warning' %>"
+                ></i>
+              </button>
+              <button class="icon-button delete-request">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="container d-flex justify-content-center mt-4">
+      <nav>
+        <ul class="pagination">
+          <% if (currentPage > 1) { %>
+          <li class="page-item">
+            <a
+              class="page-link"
+              href="/requests/allRequests?page=<%= currentPage - 1 %>&limit=<%= limit %>&search=<%= search %>"
+              >Previous</a
+            >
+          </li>
+          <% } %> <% for (let i = 1; i <= totalPages; i++) { %>
+          <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+            <a
+              class="page-link"
+              href="/requests/allRequests?page=<%= i %>&limit=<%= limit %>&search=<%= search %>"
+              ><%= i %></a
+            >
+          </li>
+          <% } %> <% if (currentPage < totalPages) { %>
+          <li class="page-item">
+            <a
+              class="page-link"
+              href="/requests/allRequests?page=<%= currentPage + 1 %>&limit=<%= limit %>&search=<%= search %>"
+              >Next</a
+            >
+          </li>
+          <% } %>
+        </ul>
+      </nav>
+    </div>
+
+    <%- include('partials/footer') %>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
